@@ -4,6 +4,7 @@ function LogicChart(id,con,cfg,signal,parent){
     var width = $(con).width();
     var height = $(con).height();
     this.parent = parent;
+    this.container = con;
     this.id = id;
     this.cfg = {
         hooks:{
@@ -41,10 +42,6 @@ function init(){
                     left:args.left,
                     top:args.top
                     });
-			$(".message").html("Panning to x: "  + axes.xaxis.min.toFixed(2) + "point " + (axes.xaxis.c2p(0) - axes.xaxis.c2p(axes.xaxis.min)) + "scale" + axes.xaxis.scale + "arg left " + args.left
-			+ " &ndash; " + axes.xaxis.max.toFixed(2)
-			+ " and y: " + axes.yaxis.min.toFixed(2)
-			+ " &ndash; " + axes.yaxis.max.toFixed(2));
 		});
 
 		$(chart_con).bind("plotzoom", function (event, plot) {
@@ -106,11 +103,15 @@ function init(){
         this.plot.zoomOut(c);
     }
     LogicChart.prototype.pan = function(triggered_id,c){
-        console.log("trigggered by " + triggered_id + "executed in " + this.id + " go " + c.toString());
         if(triggered_id == this.id){
             return;
         }
         this.plot.pan(c);
+    }
+    LogicChart.prototype.resize = function(size){
+        $(this.container).height(size.height);
+        this.$note.height(size.height);
+        this.$chart.height(size.height);
     }
 }
 function conv_signal_to_plot_data(signal){
