@@ -1,0 +1,8 @@
+.chart_container  .chart{
+    float:right;
+    width:80%
+}
+.chart_container  .note{
+    float:left;
+    width:20%;
+}
