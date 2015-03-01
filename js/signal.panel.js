@@ -6,7 +6,7 @@ function SignalPanel(con,signal_def,selected_list,cbs){
         }
         $item.click(item_click);
     });
-    
+    $(con).dialog();
     function item_click(evt){
         var $item = $(evt.target);
         $item.toggleClass("selected");

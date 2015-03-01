@@ -3,7 +3,7 @@ function LogicCharts(con,data){
     var chart_hieght;
     var chart_width;
     var previousX,previousY;
-    
+
     var flot_cfg = {
        series:{
               lines:{show:true},
@@ -14,11 +14,13 @@ function LogicCharts(con,data){
        },
        yaxis:{
               show:false,
-              zoomRange:false
+              zoomRange:false,
+              panRange:false
+
        },
        xaxis:{
               show:false,
-              zoomRange:60
+              //zoomRange:60
        },
        zoom:{
             interactive:true,
@@ -27,81 +29,107 @@ function LogicCharts(con,data){
             interactive:true,
        }
     };
-   
+
     this.end_point = 1000;
     this.raw_data = data;
     this.container = con;
-    this.charts = new Array();
+    this.charts = {};
     this.chart_height = 0;
     if(Array.isArray(data)){
+        var gap_index = 0;
         chart_height = $(that.container).height() / data.length;
         chart_width = $(that.container).width();
         $("<div></div>").attr("id","pop_info").css({position:"absolute"}).appendTo(that.container);
         $.each(that.raw_data,function(index,signal){
-            var chart_note = chart_width * 0.2;
-            var chart_data = new Array();
-            var chart;
-            
-            var $chart_con = $("<div></div>").attr("id","chart" + index).addClass("chart_container").height(chart_height).appendTo(that.container);
-            signal.end_point = 100;
-            chart = new LogicChart(index,$chart_con,flot_cfg,signal,that);
-            chart.init_chart();
-            //plot = $.plot(that.container + " #chart" + index, [{data:render_data}],flot_cfg);
-            //plot.zoom({ center: { left: 30, top: 10 } });
-            //plot.getIndex = function(){return index;};
-            that.charts.push(chart);
-        });
-        /*$(that.container).mousewheel(function(evt){
-            var zoomOut = evt.deltaY < 0;
-            var zoomF;
-            if(zoomOut)
-                zoomF = function(chart){
-                        var c = {left:evt.deltaX,top:10};
-                        chart.zoomOut(c);
-                    };
-            else
-                zoomF = function(chart){
-                        var c = {left:evt.deltaX,top:10};
-                        chart.zoom(c);
-                    };
-            $.each(that.charts,function(index,chart){
-                zoomF(chart);
+            //var chart;
+            //var $chart_con = $("<div></div>").attr("id",signal.sig_def.name).addClass("chart_container").height(chart_height).appendTo(that.container);
+            //that.charts[signal.sig_def.name] = (chart);
+            create_chart(signal);
             });
-            console.log(evt.deltaY + " , " + evt.deltaX);
+        /*$("#chart_containers .chart_container").draggable({
+                         cursor: "move",
+                         cursorAt: { top: 56, left: 56 },
+                         //revert: "invalid",
+                         containment: "#chart_containers",
+                        });
+        $("#chart_containers .chart_container").droppable({
+          accept:".chart_container",
+          tolerance:"pointer",
+          hoverClass:"drop_active",
+          drop:function(evt,ui){
+            var src = ui.draggable;
+            var dst = evt.target;
+            $(dst).after(src);
+            $(src).css("left",0).css("top",0);//({left:(0),top:(0)});
+          },
+
         });*/
-        //$(that.container).bind("dragstart",{distance:10},onDragStart);
-        //$(that.container).bind("drag",onDrag);
-        //$(that.container).bind("dragend",onDragEnd);
+
+    }
+    function create_chart(signal){
+        var $chart_con = $("<div></div>").attr("id",signal.sig_def.name)
+                                        .addClass("chart_container")
+                                        .appendTo(that.container)
+                                        .draggable({
+                                           cursor: "move",
+                                           cursorAt: { top: 10, left: 20 },
+                                           revert: "invalid",
+                                           containment: that.container,
+                                        })
+                                        .droppable({
+                                          accept:".chart_container",
+                                          tolerance:"pointer",
+                                          hoverClass:"drop_active",
+                                          drop:function(evt,ui){
+                                            move_chart(ui.draggable,evt.target);
+                                          }});
+        signal.end_point = 100;
+        var chart = new LogicChart($chart_con,flot_cfg,signal,that);
+        chart.init_chart();
+        that.charts[signal.sig_def.name] = chart;
+
+
     }
     this.pan = function(triggered_id,c){
         $.each(that.charts,function(index,chart){
             chart.pan(triggered_id,c);
         });
     }
+    this.zoom = function(triggered_id,c){
+        $.each(that.charts,function(index,chart){
+            chart.zoom(triggered_id,c);
+        });
+    }
+    this.del_signal = function(signal_def){
+      var chart = this.charts[signal_def.name];
+      if(chart != undefined){
+        $("#" + signal_def.name + ".chart_container").remove();
+        delete this.charts[signal_def.name];
+      }
+    }
     this.add_signal = function(signal_def){
         var found = false;
         var that = this;
+        var signal = {sig_def:signal_def,data:[]};
+
+        if(this.charts[signal_def.name] != undefined) return;
         for(i = 0;i < this.raw_data.length; i ++){
             if(this.raw_data[i].sig_def.name == signal_def.name){
+                signal = this.raw_data[i];
                 found = true;
                 break;
             }
         }
-        if(found == false){
-            var signal = {sig_def:signal_def,data:[]};
-            var id = this.raw_data.length;
-            this.raw_data.push(signal);
-            this.chart_height = $(this.container).height() / this.raw_data.length;
-            $.each(this.charts,function(index,chart){
-                    chart.resize({width:$(that.container).width(),height:that.chart_height});
-                });
-            var $chart_con = $("<div></div>").attr("id","chart" + id).addClass("chart_container").height(that.chart_height).appendTo(that.container);
-            signal.end_point = 100;
-            var chart = new LogicChart(this.raw_data.length - 1,$chart_con,flot_cfg,signal,that);
-            chart.init_chart();
-            this.charts.push(chart);
-        }
+        if(!found) this.raw_data.push(signal);
+        create_chart(signal);
     }
+
+
+    function move_chart(src,dst){
+      $(dst).after(src);
+      $(src).css("left",0).css("top",0);//({left:(0),top:(0)});
+    }
+
 }
 
 

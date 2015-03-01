@@ -1,11 +1,10 @@
 
-function LogicChart(id,con,cfg,signal,parent){
+function LogicChart(con,cfg,signal,parent){
     var that = this;
     var width = $(con).width();
     var height = $(con).height();
     this.parent = parent;
     this.container = con;
-    this.id = id;
     this.cfg = {
         hooks:{
             bindEvents:function(plot, eventHolder){
@@ -18,8 +17,8 @@ function LogicChart(id,con,cfg,signal,parent){
             }
        },
     };
-    this.$note = $("<div></div>").addClass("note").attr("id",id).height(height);
-    this.$chart = $("<div></div>").addClass("chart").attr("id",id).appendTo(con).height(height);
+    this.$note = $("<div></div>").addClass("note").height(height);
+    this.$chart = $("<div></div>").addClass("chart").appendTo(con).height(height);
     this.$note.appendTo(con);
     this.$chart.appendTo(con);
     this.cfg = $.extend(true,this.cfg,cfg);
@@ -30,31 +29,41 @@ function LogicChart(id,con,cfg,signal,parent){
 function init(){
     LogicChart.prototype.init_chart = function(){
         var render_data = conv_signal_to_plot_data(this.signal);
-        var chart_con = "#" + this.id + ".chart";
         var parent = this.parent;
-        var trigger_id = this.id;
-        this.plot = $.plot(chart_con,[{data:render_data}],this.cfg);
-		$(chart_con).bind("startpan", function (event, plot){
-			var axes = plot.getAxes();
+        var that = this;
+        this.plot = $.plot(this.$chart,[{data:render_data}],this.cfg);
+		    this.$chart.bind("startpan", function (event, plot){
+			  var axes = plot.getAxes();
             var args = arguments[2];
-            parent.pan(trigger_id,
+            parent.pan(that.get_name(),
                     {
                     left:args.left,
                     top:args.top
                     });
-		});
+		    });
 
-		$(chart_con).bind("plotzoom", function (event, plot) {
-			var axes = plot.getAxes();
-			$(".message").html("Zooming to x: "  + axes.xaxis.min.toFixed(2)
-			+ " &ndash; " + axes.xaxis.max.toFixed(2)
-			+ " and y: " + axes.yaxis.min.toFixed(2)
-			+ " &ndash; " + axes.yaxis.max.toFixed(2));
-		});
+		    this.$chart.bind("plotzoom", function (event, plot) {
+			      var args = arguments[2];
+            args.preventEvent = true;
+            parent.zoom(that.get_name(),args);
+		    });
+
+        /*$(note_con).bind("drag",function(event,dd){
+
+            console.log("drag " + event.toString() + " dd " + dd.toString());
+        });
+
+        $(note_con).bind("dragend",function(event,dd){
+             console.log("drag " + event.toString() + " dd " + dd.toString());
+
+        });*/
+
+
         this.note_refresh();
     }
+    LogicChart.prototype.get_name = function(){ return this.signal.sig_def.name;}
     LogicChart.prototype.refresh = function(){
-    
+
     }
     LogicChart.prototype.note_refresh = function(){
         this.$note.empty();
@@ -87,23 +96,21 @@ function init(){
                 data.push([click_point,1 != data[ins_point - 1][1]]);
             }
         }
-        this.refresh();    
+        this.refresh();
     }
     LogicChart.prototype.refresh = function(){
         var render_data = conv_signal_to_plot_data(this.signal);
         this.plot.setData([render_data]);
         this.plot.draw();
     }
-    
-    LogicChart.prototype.zoom = function(c){
+
+    LogicChart.prototype.zoom = function(triggered_id,c){
+        if(triggered_id == this.get_name()) return;
         this.plot.zoom(c);
     }
-    
-    LogicChart.prototype.zoomOut = function(c){
-        this.plot.zoomOut(c);
-    }
+
     LogicChart.prototype.pan = function(triggered_id,c){
-        if(triggered_id == this.id){
+        if(triggered_id == this.get_name()){
             return;
         }
         this.plot.pan(c);

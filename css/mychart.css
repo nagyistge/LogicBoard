@@ -1,8 +1,15 @@
 .chart_container:hover{
     border:1 solid red
 }
+
+.chart_container.drop_active{
+    border:1 solid green
+}
+
 .chart_container{
-    border:none
+    border:none;
+    height:60px;
+    width:100%;
 }
 
 .chart_container  .chart{
@@ -21,3 +28,6 @@
 #signal_panel .signal{
     background:gray;
 }
+#signal_panel
+{ width: 150px; height: 150px; padding: 0.5em; }
+#signal_panel h3 { text-align: center; margin: 0; }
