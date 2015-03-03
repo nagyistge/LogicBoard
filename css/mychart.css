@@ -1,3 +1,13 @@
+#main{
+  height:100%;
+  width:100%;
+}
+
+.tab_content{
+  height:100%;
+  width:100%;
+}
+
 .chart_container:hover{
     border:1 solid red
 }
