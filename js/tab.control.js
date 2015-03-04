@@ -7,8 +7,8 @@ function TabControl(con){
 
   }
 
-  function createTab(){
-
+  function createTab(title){
+    
 
   }
 }
