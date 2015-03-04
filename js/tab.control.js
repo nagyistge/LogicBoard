@@ -1,15 +1,31 @@
-function TabControl(con){
-  var tabCount = 0;
-  var tabTemplate =
-      "<li><a href='#{href}'>#{label}</a> <span class='ui-icon ui-icon-close' role='presentation'>Remove Tab</span></li>";
-  var tabs = $(con).tabs();
+function MultiPanelControl(con){
+  var that = this;
+  this.windows = {};
 
+  function createAWindow(name) {
+    var win = $("<div></div>").addClass("ui-widget-content")
+            .resizable(
+            {
+              maxHeight: 250,
+              maxWidth: 350,
+              minHeight: 150,
+              minWidth: 200
+            })
+            .draggable({
+              containment:con,
+            })
+            .appendTo(con);
+      $("<h3></h3>").addClass("ui-widget-header").text(name).appendTo(win);
+      $("<div></div>").addClass("content").appendTo(win);
+      that.windows[name] = win;
+      return $(".content",win);
+  }
   this.createTCTab = function(name){
-    var content = createTab(name,tabCount++);
+    var $content = createAWindow(name);
     var graph = new joint.dia.Graph;
 
 var paper = new joint.dia.Paper({
-    el: content,
+    el: $content,
     gridSize: 1,
     width: 800,
     height: 600,
@@ -80,16 +96,9 @@ link(wage, date);
             },
             data:[[0,1],[6,1],[50,0],[53,0],[60,0]]
         };
-    var content = createTab(name,tabCount++);
-    var charts = new LogicCharts(content,[data1,data2,data3]);
+    var $content = createAWindow(name);
+    var charts = new LogicCharts($content,[data1,data2,data3]);
   }
 
-  function createTab(title,id){
-    var label = title;
-    var li =  $(tabTemplate.replace(/#\{href\}/g,"#" + id).replace(/#\{label\}/g,label));
-    tabs.find(".ui-tabs-nav").append(li);
-    var content = $("<div></div>").attr("id",id).addClass("tab_content").appendTo(tabs);
-    tabs.tabs("refresh");
-    return content;
-  }
+
 }

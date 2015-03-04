@@ -21,7 +21,7 @@
     <script language="javascript" type="text/javascript" src="js/flot/jquery.flot.navigate.js"></script>
     <script language="javascript" type="text/javascript" src="js/flot/jquery.flot.resize.js"></script>
 
-    
+
     <script language="javascript" type="text/javascript" src="js/logic.chart.js"></script>
     <script language="javascript" type="text/javascript" src="js/logic.charts.js"></script>
     <script language="javascript" type="text/javascript" src="js/logic.data.js"></script>
@@ -124,10 +124,10 @@
                                     {data:project,autoOpen:true,dragAndDrop:true});
         project_tree.bind("tree.click",function(evt){
                         var node = evt.node;
-                        if(node.type == "sequence") main_tabs.createSeqTab(node.name);
-                        if(node.type == "TC") main_tabs.createTCTab(node.name);
+                        if(node.type == "sequence") main_win.createSeqTab(node.name);
+                        if(node.type == "TC") main_win.createTCTab(node.name);
                         });
-        var main_tabs = new TabControl("#main");
+        var main_win = new MultiPanelControl("#main");
         //var charts = new LogicCharts("#chart_containers",[data1,data2,data3]);
         var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
                                     {select_change_cb:function(signal_def,selected){
@@ -135,43 +135,10 @@
                                         else charts.del_signal(signal_def);
                                         },
                                      get_container:function(){return "#chart_containers";}});
-        /*$.plot("#play_chart1", [
-				{ data: data1,clickable:true,hoverable:true},
-			],{
-                series:{
-                    lines:{show:true},
-                    points:{show:false}
-                },
-                legend:{
-                    show:false
-                },
-                yaxis:{
-                    show:false,
-                },
-                xaxis:{
-                    show:false,
-                }
-            });
-        $.plot("#play_chart2", [
-				{ data: data2,clickable:true,hoverable:true},
-			],{
-                series:{
-                    lines:{show:true},
-                    points:{show:false}
-                },
-                legend:{
-                    show:false
-                },
-                yaxis:{
-                    show:false,
-                },
-                xaxis:{
-                    show:false,
-                }
-            });   */
+
     });
 
-    </script>
+</script>
 </head>
 <html>
 
