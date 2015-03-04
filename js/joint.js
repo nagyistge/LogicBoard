@@ -17086,7 +17086,7 @@ if ( typeof window === "object" && typeof window.document === "object" ) {
             transformAttr = transformAttr.replace(/scale\([^\)]*\)/g, '').trim();
 
             var newScale = 'scale(' + sx + ',' + sy + ')';
-
+            console.log(newScale);
             this.attr('transform', (transformAttr + ' ' + newScale).trim());
             return this;
         },
@@ -21232,7 +21232,9 @@ joint.dia.ElementView = joint.dia.CellView.extend({
             // If there is no scalable elements, than there is nothing to resize.
             return;
         }
-        var scalableBbox = scalable.bbox(true);
+        var scalableBbox = scalable.bbox(true);//I down know why the bbox return 0, work around it temporarily
+        scalableBbox.width = size.width;
+        scalableBbox.height = size.height;
         // Make sure `scalableBbox.width` and `scalableBbox.height` are not zero which can happen if the element does not have any content. By making
         // the width/height 1, we prevent HTML errors of the type `scale(Infinity, Infinity)`.
         scalable.attr('transform', 'scale(' + (size.width / (scalableBbox.width || 1)) + ',' + (size.height / (scalableBbox.height || 1)) + ')');
