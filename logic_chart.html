@@ -120,10 +120,10 @@
                                     {data:project,autoOpen:true,dragAndDrop:true});
         project_tree.bind("tree.click",function(evt){
                         var node = evt.node;
-                        alert(node.name);
+                        main_tabs.createSeqTab(node.name);
                         });
-        var main_tabs = ("#main").tabs();
-        var charts = new LogicCharts("#chart_containers",[data1,data2,data3]);
+        var main_tabs = new TabControl("#main");
+        //var charts = new LogicCharts("#chart_containers",[data1,data2,data3]);
         var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
                                     {select_change_cb:function(signal_def,selected){
                                         if(selected) charts.add_signal(signal_def);
@@ -178,7 +178,9 @@
     <div class="ui-layout-south"></div>
     <div class="ui-layout-east"></div>
     <div class="ui-layout-center">
-        <div id="main"></div>
+        <div id="main">
+            <ul></ul>
+        </div>
     <div id="chart_containers" style="width:600px;height:600px">
     </div>
     <div id="signal_panel" title="Signal Pick List">
