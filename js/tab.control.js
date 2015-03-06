@@ -1,5 +1,6 @@
 function MultiPanelControl(con){
   var that = this;
+  
   this.windows = {};
 
   function createAWindow(name) {
