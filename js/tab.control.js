@@ -1,27 +1,56 @@
 function MultiPanelControl(con){
   var that = this;
-  this.windows = {};
 
+
+  "use strict";
+
+	// set some options as taskbar's defaults
+	$.simone.taskbarSetup({
+		languageSelect: true,
+		languages: [ "en" ],
+		orientation: "vertical",
+		verticalStick: "bottom right",
+		verticalHeight: "80%",
+		beforeDroppableOver: function ( event, ui ) {
+			// we have top bar on page, so let's dissalow dropping
+			// taskbars on top edge
+			if ( ui.edge === "top" ) {
+				event.preventDefault();
+			}
+		}
+	});
+
+
+  $.simone.windowSetup({
+		closable: false,
+		group: "shared",
+		width: 400
+	});
+  var taskbar = $("#taskbar",con).taskbar();
+  var id = 0;
+  this.windows = {};
+  //var proj = new ProjectTree(createAWindow("proj"));
   function createAWindow(name) {
-    var win = $("<div></div>").addClass("ui-widget-content")
-            .resizable(
-            {
-              maxHeight: 250,
-              maxWidth: 350,
-              minHeight: 150,
-              minWidth: 200
-            })
-            .draggable({
-              containment:con,
-            })
-            .appendTo(con);
-      $("<h3></h3>").addClass("ui-widget-header").text(name).appendTo(win);
-      $("<div></div>").addClass("content").appendTo(win);
+    var win = $("<div></div>")
+              .appendTo(con)
+              .attr("title",name).attr("id","win-" + id)
+              .window({
+                position:{
+                  my:"right top",
+                  at:"right top"
+                },
+                title:name,
+                width:680,
+                height:500
+              })
+              .append("<div class='content'></div>");
       that.windows[name] = win;
+      id ++;
       return $(".content",win);
   }
   this.createTCTab = function(name){
     var $content = createAWindow(name);
+    return;
     var graph = new joint.dia.Graph;
 
 var paper = new joint.dia.Paper({
