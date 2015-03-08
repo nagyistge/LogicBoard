@@ -3,15 +3,18 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>Logic Chart</title>
     <link href="js/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css">
-	<link href="css/mychart.css" rel="stylesheet" type="text/css">
-    <link href="css/jqtree.css" rel="stylesheet" type="text/css">
-    <link href="css/layout-default.css" rel="stylesheet" type="text/css">
-    <link href="css/joint.css" rel="stylesheet" type="text/css">
     <link href="css/simone.taskbar.css" rel="stylesheet" type="text/css">
     <link href="css/simone.window.css" rel="stylesheet" type="text/css">
     <link href="js/libs/jui_theme_switch/jquery.jui_theme_switch.css" rel="stylesheet">
     <link href="js/libs/prism/prism.css" rel="stylesheet">
     <link href="js/libs/foundation/topbar/css/foundation.min.css" rel="stylesheet">
+
+
+
+    <link href="css/mychart.css" rel="stylesheet" type="text/css">
+    <link href="css/jqtree.css" rel="stylesheet" type="text/css">
+    <link href="css/layout-default.css" rel="stylesheet" type="text/css">
+    <link href="css/joint.css" rel="stylesheet" type="text/css">
 
 
 	<!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../../excanvas.min.js"></script><![endif]-->
@@ -53,7 +56,8 @@
 
          win_manager = new MultiPanelControl("#main");
          win_manager.createTCTab("Test");
-        /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
+         win_manager.createSeqTab("Sequ");
+       /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
                                     {select_change_cb:function(signal_def,selected){
                                         if(selected) charts.add_signal(signal_def);
                                         else charts.del_signal(signal_def);
@@ -66,10 +70,10 @@
 </head>
 <html>
 
-<body>
-        <div id="main">
-            <div id="taskbar"></div>
-        </div>
+    <body>
+<div id="main">
+<div class="taskbar"></div>
 
+        </div>
 </body>
 </html>

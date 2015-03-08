@@ -26,11 +26,12 @@ function MultiPanelControl(con){
 		group: "shared",
 		width: 400
 	});
-  var taskbar = $("#taskbar",con).taskbar();
+  var taskbar = $(".taskbar",con).taskbar();
   var id = 0;
   this.windows = {};
   //var proj = new ProjectTree(createAWindow("proj"));
   function createAWindow(name) {
+    "use strict";
     var win = $("<div></div>")
               .appendTo(con)
               .attr("title",name).attr("id","win-" + id)
@@ -50,7 +51,6 @@ function MultiPanelControl(con){
   }
   this.createTCTab = function(name){
     var $content = createAWindow(name);
-    return;
     var graph = new joint.dia.Graph;
 
 var paper = new joint.dia.Paper({
@@ -131,3 +131,6 @@ link(wage, date);
 
 
 }
+
+
+
