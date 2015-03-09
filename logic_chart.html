@@ -53,8 +53,8 @@
 
     var win_manager = null;
     $(function($){
-
          win_manager = new MultiPanelControl("#main");
+         var $proj = new ProjectTree(win_manager.createWindow("proj",{}));
          win_manager.createTCTab("Test");
          win_manager.createSeqTab("Sequ");
        /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
@@ -70,10 +70,11 @@
 </head>
 <html>
 
-    <body>
-<div id="main">
-<div class="taskbar"></div>
-
-        </div>
+<body>
+<div id="project" class="ui-layout-east"></div>
+<div id="main" class="ui-layout-center">
+    <div id="taskbar"></div>
+</div>
+<div class="ui-layout-west"></div>
 </body>
 </html>

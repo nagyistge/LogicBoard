@@ -27,7 +27,7 @@ function MultiPanelControl(con){
 		group: "shared",
 		width: 400
 	});
-  var taskbar = $(".taskbar",con).taskbar();
+  var taskbar = $("#taskbar",con).taskbar();
   var id = 0;
   this.windows = {};
   //var proj = new ProjectTree(createAWindow("proj"));
@@ -49,6 +49,18 @@ function MultiPanelControl(con){
       that.windows[name] = win;
       id ++;
       return $(".content",win);
+  }
+
+  function createWindow(name,cfg){
+    var win =  $("<div></div>")
+              .append("<div class='content'></div>")
+              .appendTo(con)
+              .window(cfg);
+    that.windows[name] = win;
+    return $(".content",win);
+  }
+  this.createWindow = function(name,cfg){
+    return createWindow(name,cfg);
   }
   this.createTCTab = function(name){
     var $content = createAWindow(name);
