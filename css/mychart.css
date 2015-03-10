@@ -40,4 +40,23 @@
 }
 #signal_panel
 { width: 150px; height: 150px; padding: 0.5em; }
+
 #signal_panel h3 { text-align: center; margin: 0; }
+
+.jqtree-element .tree-menu{
+    float:right;
+    display:none;
+}
+.pulldown-menu{
+    display:none;
+}
+
+.jqtree-element:hover .tree-menu{
+    display:block;
+}
+.jqtree-element .tree-menu:hover  .pulldown-menu{
+    float:right;
+    z-index:2000;
+    display:block;
+    position:absolute;
+}
