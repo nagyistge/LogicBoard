@@ -3,10 +3,10 @@ function MultiPanelControl(con){
  
   this.windows = {};
 
-  "use strict";
+  //"use strict";
 
 	// set some options as taskbar's defaults
-	$.simone.taskbarSetup({
+	/*$.simone.taskbarSetup({
 		languageSelect: true,
 		languages: [ "en" ],
 		orientation: "vertical",
@@ -19,15 +19,21 @@ function MultiPanelControl(con){
 				event.preventDefault();
 			}
 		}
-	});
+	});*/
 
 
-  $.simone.windowSetup({
+  /*$.simone.windowSetup({
 		closable: false,
 		group: "shared",
 		width: 400
-	});
-  var taskbar = $("#taskbar",con).taskbar();
+	});*/
+  var taskbar = $("#taskbar",con).taskbar({
+                    buttons:{
+                        OpenProject:{}
+                    },
+                    buttonsOrder: [ "OpenProject" ],
+                });
+  $("#taskbar",con).taskbar("option","buttons.OpenProject").$element.on("click",function(){console.log("test");});
   var id = 0;
   this.windows = {};
   //var proj = new ProjectTree(createAWindow("proj"));

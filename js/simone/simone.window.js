@@ -45,7 +45,7 @@ $.widget( "simone.window", $.ui.dialog, {
 		},
 		embeddedContent   : false,
 		group             : null,
-		height            : "auto",
+		height            : "100%", //yun change it
 		hide              : false,
 		icons             : {
 			close         : "ui-icon-closethick",
@@ -3497,7 +3497,7 @@ $.widget( "simone.window", $.ui.dialog, {
 		}
 
 		this.$window.css({
-			height: "auto",
+			height: "100%",//xieyun changed
 			maxHeight: ""
 		});
 

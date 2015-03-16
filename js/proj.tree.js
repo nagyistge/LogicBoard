@@ -1,6 +1,4 @@
-function ProjectTree(con){
-
-  var project = [{label:"autotest",
+  var project1 = [{label:"autotest",
                         id:1,
                         type:"project",
                         children:[
@@ -22,8 +20,13 @@ function ProjectTree(con){
                             }
                         ]
                        }];
+
+function ProjectTree(con,_proj){
+  var cur_node_id = 100;
+  var proj = _proj;
+  if(proj == null) proj = [{label:"new project",type:"project",id:1}];
   var project_tree = $(con).tree(
-                  {data:project,autoOpen:true,dragAndDrop:true,
+                  {data:proj,autoOpen:true,dragAndDrop:true,
                    onCreateLi:function(node,$li){
                                 var $menu = $("<span></span>").addClass("tree-menu").append($("<div>Menu</div>").addClass("menu-bar"));
                                 $menu.append(createContextMenu(node));
@@ -43,11 +46,19 @@ function ProjectTree(con){
     "create_seq":create_seq,
     "open":open_node
    };
+   
+   function extract_data(){
+    var tree= project_tree.getTree();
+    
+   }
+   
    function delete_node(node){
    }
    function create_sub_folder(node){
     var parent_node = project_tree.tree('getNodeById', node.id);
-    project_tree.tree("appendNode",{label:"new folder",id:34534,type:"folder"},parent_node);
+    project_tree.tree("selectNode",(null));
+    project_tree.tree("appendNode",{label:"new folder",id:generateUUID(),type:"folder"},parent_node);
+    
    }
    function create_tc(node){
    }
@@ -77,3 +88,13 @@ function ProjectTree(con){
        return $menu;
    }
 }
+
+function generateUUID(){
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (d + Math.random()*16)%16 | 0;
+        d = Math.floor(d/16);
+        return (c=='x' ? r : (r&0x3|0x8)).toString(16);
+    });
+    return uuid;
+};

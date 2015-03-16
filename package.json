@@ -1,0 +1,20 @@
+{
+	"name":"Test Case Editor",
+	"main":"logic_chart.html",
+	"description": "vbcm ui",
+	"version": "0.1.0",
+	"window": {
+		"title": "Magneti Marelli Gateway Configration Tool",
+		"icon": "",
+		"toolbar": true,
+		"frame": true,
+		"width": 1200,
+		"height": 900,
+		"position": "mouse",
+		"min_width": 1000,
+		"min_height": 700
+	},
+	"webkit": {
+		"plugin": true
+	}	
+}
