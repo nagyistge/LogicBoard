@@ -44,26 +44,27 @@ function ProjectTree(con,_proj){
     "create_sub_folder":create_sub_folder,
     "create_tc":create_tc,
     "create_seq":create_seq,
-    "open":open_node
+    "open":open_node,
+     "save":save_project
    };
-   
-   function extract_data(){
-    var tree= project_tree.getTree();
-    
+
+   function save_project(){
+    var tree= project_tree.tree('getTree').getData()[0];
+    mm.save_file(tree.label,tree);
    }
-   
+
    function delete_node(node){
    }
    function create_sub_folder(node){
     var parent_node = project_tree.tree('getNodeById', node.id);
     project_tree.tree("selectNode",(null));
     project_tree.tree("appendNode",{label:"new folder",id:generateUUID(),type:"folder"},parent_node);
-    
+
    }
    function create_tc(node){
    }
    function create_seq(node){
-   
+
    }
    function open_node(node){
     if(node.type == "tc"){
@@ -77,6 +78,8 @@ function ProjectTree(con,_proj){
        var $menu = $("<div></div>").addClass("pulldown-menu").data(node);
        if(node.type != "project")
             $menu.append("<li id='delete'>delete</li>");
+       else
+            $menu.append("<li id='save'>Save<li>");
        if(node.type == "folder" || node.type == "project"){
             $menu.append("<li id='create_sub_folder'>create sub folder</li>")
                  .append("<li id='create_tc'>create TC</li>")

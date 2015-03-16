@@ -1,3 +1,35 @@
+var mm = {};
+
+mm.save_file = function(file,content){
+
+
+}
+mm.read_json_file = function(file,cb){
+  var fs = require('fs');
+	var text_string = "";
+	var dbc_stream
+
+	dbc_stream = fs.createReadStream(file,
+			{flags:"r",
+			 endcoding:"ascii",
+			 autoClose:true
+			});
+	//var json_stream = fs.createWriteStream();
+	dbc_stream.on('readable', function() {
+			var chunk;
+			while (null !== (chunk = dbc_stream.read())) {
+				text_string += chunk.toString("ascii");
+			}
+	});
+	dbc_stream.on('end',function(){
+			cb(eval(text_string));
+			});
+	dbc_stream.on("error",function(){
+			cb(null);
+			});
+}
+
+
 function read_text_file(file,cb){
 	var fs = require('fs');
 	var text_string = "";
@@ -88,7 +120,7 @@ function remove_tag(_tags,target){
 }
 function add_tag(_tags,target){
 	var result = remove_tag(_tags,target);
-	return result + " " + target;	
+	return result + " " + target;
 }
 
 function has_tag(_tags,target){
@@ -96,7 +128,7 @@ function has_tag(_tags,target){
 	return true;
 }
 
-var log_elem = null;
+
 
 function init_log(_elem){
 	log_elem = _elem;
@@ -117,7 +149,7 @@ function mm_log(type,description){
 	var height = $(log_elem)[0].offsetHeight;
 	var p_h = $(log_elem).parent()[0].offsetHeight;
 	var top = height - p_h;
-	$(log_elem).parent()[0].scrollTop = top > 0 ? top:0 ; 
+	$(log_elem).parent()[0].scrollTop = top > 0 ? top:0 ;
 }
 
 var prog_bar = null;
