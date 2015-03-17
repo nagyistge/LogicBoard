@@ -1,8 +1,14 @@
 var mm = {};
 
 mm.save_file = function(file,content){
-
-
+    var fs = require("fs");
+	var stream = fs.createWriteStream(file,{
+							flags:"w",
+							encoding:null,
+							mode:0666
+							});
+	var str = JSON.stringify(content,null,4);
+	stream.write(str,"ascii",function(){stream.end();});
 }
 mm.read_json_file = function(file,cb){
   var fs = require('fs');
@@ -152,17 +158,5 @@ function mm_log(type,description){
 	$(log_elem).parent()[0].scrollTop = top > 0 ? top:0 ;
 }
 
-var prog_bar = null;
-$(function(){
-	prog_bar = new ProgressDlg("#prog_dlg");
-});
 
-function prog_update(value,text){
-	/*if(value == 100) prog_bar.close();
-	if((prog_bar.isShow == false) && (value == 0)){
-		prog_bar.open();
-	}
-    if(prog_bar.isShow)
-        prog_bar.setProgress(value,text);*/
-}
 

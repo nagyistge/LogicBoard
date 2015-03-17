@@ -50,7 +50,7 @@ function ProjectTree(con,_proj){
 
    function save_project(){
     var tree= project_tree.tree('getTree').getData()[0];
-    mm.save_file(tree.label,tree);
+    mm.save_file(tree.name,tree);
    }
 
    function delete_node(node){

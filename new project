@@ -1,0 +1,17 @@
+{
+    "name": "new project",
+    "type": "project",
+    "id": 1,
+    "children": [
+        {
+            "name": "new folder",
+            "id": "2c1e57fc-a7d0-43f3-bb34-2a261b623f32",
+            "type": "folder"
+        },
+        {
+            "name": "new folder",
+            "id": "ebffc58f-1ea6-419e-afb2-9d09e74e2bcb",
+            "type": "folder"
+        }
+    ]
+}
