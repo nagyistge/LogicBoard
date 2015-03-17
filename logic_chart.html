@@ -22,19 +22,19 @@
     <script language="javascript" type="text/javascript" src="js/lodash.js"></script>
   <script language="javascript" type="text/javascript" src="js/joint.js"></script> <!--   a bug in the lib which remove the plugin defintion -->
   <script language="javascript" type="text/javascript" src="js/joint.shapes.erd.js"></script>
-    
+
     <script language="javascript" type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
     <script language="javascript" type="text/javascript" src="js/simone/simone.window.js"></script>
     <script language="javascript" type="text/javascript" src="js/simone/simone.taskbar.js"></script>
     <script language="javascript" type="text/javascript" src="js/simone/i18n/simone-en.js"></script>
-    
-    
-    
+
+
+
     <script src="js/libs/loremipsum/jquery.loremipsum.js"></script>'
     <script src="js/libs/jui_theme_switch/jquery.jui_theme_switch.js"></script>
     <script src="js/libs/prism/prism.js"></script>
     <script src="js/libs/foundation/topbar/js/foundation.min.js"></script>
-    
+
  	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.js"></script>
 	<script language="javascript" type="text/javascript" src="js/flot/jquery.flot.selection.js"></script>
     <script language="javascript" type="text/javascript" src="js/jquery-mousewheel-3.1.12/jquery.mousewheel.js"></script>
@@ -54,9 +54,10 @@
     <script type="text/javascript">
 
     var win_manager = null;
+    var $proj_manager = null;
     $(function($){
          win_manager = new MultiPanelControl("#main");
-         var $proj = new ProjectTree(win_manager.createWindow("proj",{}));
+         $proj_manager = new ProjectTree(win_manager.createWindow("proj",{}));
          win_manager.createTCTab("Test");
          win_manager.createSeqTab("Sequ");
        /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
@@ -79,4 +80,5 @@
 </div>
 <div class="ui-layout-west"></div>
 </body>
+<input style="display:none;" id="fileDialog" type="file" />
 </html>

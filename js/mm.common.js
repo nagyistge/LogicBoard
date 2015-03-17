@@ -1,5 +1,13 @@
 var mm = {};
-
+$(function(){
+  mm.filedlg = $("#fileDialog");
+});
+mm.open_file_dlg = function(cb){
+  mm.filedlg.change(function(evt){
+    cb(mm.filedlg.val());
+  });
+  mm.filedlg.trigger("click");
+}
 mm.save_file = function(file,content){
     var fs = require("fs");
 	var stream = fs.createWriteStream(file,{

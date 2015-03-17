@@ -1,6 +1,6 @@
 function MultiPanelControl(con){
   var that = this;
- 
+
   this.windows = {};
 
   //"use strict";
@@ -33,7 +33,11 @@ function MultiPanelControl(con){
                     },
                     buttonsOrder: [ "OpenProject" ],
                 });
-  $("#taskbar",con).taskbar("option","buttons.OpenProject").$element.on("click",function(){console.log("test");});
+  $("#taskbar",con).taskbar("option","buttons.OpenProject")
+                .$element.on("click",function(){
+                                    $proj_manager.openProject();
+                                    }
+                            );
   var id = 0;
   this.windows = {};
   //var proj = new ProjectTree(createAWindow("proj"));

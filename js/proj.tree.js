@@ -39,6 +39,17 @@ function ProjectTree(con,_proj){
                                         var node = $(evt.target).parent().data();
                                         node_func_tab[command](node);
                                     });
+  function init_proj_tree(tree_obj){
+
+
+  }
+  this.openProject = function(){
+    mm.open_file_dlg(function(file){
+      mm.read_json_file(file,function(obj){
+            init_proj_tree(obj);
+        });
+    });
+  }
    var node_func_tab = {
     "delete":delete_node,
     "create_sub_folder":create_sub_folder,
