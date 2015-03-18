@@ -23,18 +23,18 @@
 
 function ProjectTree(con,_proj){
   var cur_node_id = 100;
-  var proj = _proj;
-  if(proj == null) proj = [{label:"new project",type:"project",id:1}];
-  var project_tree = create_proj_tree(proj);
-  
+  var proj_data = _proj;
+  if(proj_data == null) proj_data = [{label:"new project",type:"project",id:1}];
+  var project_tree = create_proj_tree();
+
   $(con).on("click",".pulldown-menu li",function(evt){
                                         var command = evt.target.id;
                                         var node = $(evt.target).parent().data();
                                         node_func_tab[command](node);
                                     });
-  function create_proj_tree(tree_obj){
+  function create_proj_tree(){
     var tree = $(con).tree(
-                  {data:tree_obj,autoOpen:true,dragAndDrop:true,
+                  {data:proj_data,autoOpen:true,dragAndDrop:true,
                    onCreateLi:function(node,$li){
                                 var $menu = $("<span></span>").addClass("tree-menu").append($("<div>Menu</div>").addClass("menu-bar"));
                                 $menu.append(createContextMenu(node));
@@ -47,7 +47,9 @@ function ProjectTree(con,_proj){
   this.openProject = function(){
     mm.open_file_dlg(function(file){
       mm.read_json_file(file,function(obj){
-            create_proj_tree(obj);
+            //proj_data = obj;
+            if(obj == null) return;
+            project_tree.tree("loadData",obj);
         });
     });
   }
@@ -61,7 +63,7 @@ function ProjectTree(con,_proj){
    };
 
    function save_project(){
-    var tree= project_tree.tree('getTree').getData()[0];
+    var tree= project_tree.tree('getTree').getData();
     mm.save_file(tree.name,tree);
    }
 
