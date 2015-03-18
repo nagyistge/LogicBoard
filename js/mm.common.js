@@ -4,7 +4,9 @@ $(function(){
 });
 mm.open_file_dlg = function(cb){
   mm.filedlg.change(function(evt){
-    cb(mm.filedlg.val());
+    var str = mm.filedlg.val();
+    mm.filedlg.val("");
+    cb(str);
   });
   mm.filedlg.trigger("click");
 }
@@ -36,7 +38,7 @@ mm.read_json_file = function(file,cb){
 			}
 	});
 	dbc_stream.on('end',function(){
-			cb(eval(text_string));
+			cb(JSON.parse(text_string));
 			});
 	dbc_stream.on("error",function(){
 			cb(null);

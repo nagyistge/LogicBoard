@@ -25,28 +25,29 @@ function ProjectTree(con,_proj){
   var cur_node_id = 100;
   var proj = _proj;
   if(proj == null) proj = [{label:"new project",type:"project",id:1}];
-  var project_tree = $(con).tree(
-                  {data:proj,autoOpen:true,dragAndDrop:true,
+  var project_tree = create_proj_tree(proj);
+  
+  $(con).on("click",".pulldown-menu li",function(evt){
+                                        var command = evt.target.id;
+                                        var node = $(evt.target).parent().data();
+                                        node_func_tab[command](node);
+                                    });
+  function create_proj_tree(tree_obj){
+    var tree = $(con).tree(
+                  {data:tree_obj,autoOpen:true,dragAndDrop:true,
                    onCreateLi:function(node,$li){
                                 var $menu = $("<span></span>").addClass("tree-menu").append($("<div>Menu</div>").addClass("menu-bar"));
                                 $menu.append(createContextMenu(node));
                                 $li.find('.jqtree-element').append($menu);
                             },
                    }
-                   );
-  $(con).on("click",".pulldown-menu li",function(evt){
-                                        var command = evt.target.id;
-                                        var node = $(evt.target).parent().data();
-                                        node_func_tab[command](node);
-                                    });
-  function init_proj_tree(tree_obj){
-
-
+               );
+    return tree;
   }
   this.openProject = function(){
     mm.open_file_dlg(function(file){
       mm.read_json_file(file,function(obj){
-            init_proj_tree(obj);
+            create_proj_tree(obj);
         });
     });
   }
