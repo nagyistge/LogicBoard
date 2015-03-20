@@ -7,7 +7,16 @@
   height:100%;
   width:100%;
 }
-
+.seq .charts{
+    width:80%;
+    height:100%;
+    float:left;
+}
+.seq .sig_sel_con{
+    float:right;
+    width:20%;
+    height:100%
+}
 .chart_container:hover{
     border:1 solid red
 }

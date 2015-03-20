@@ -149,6 +149,7 @@ link(wage, date);
             data:[[0,1],[6,1],[50,0],[53,0],[60,0]]
         };
     var $content = createAWindow(name);
+    $content.addClass("seq");
     var charts = new LogicCharts($content,[data1,data2,data3]);
   }
 

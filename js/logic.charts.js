@@ -1,5 +1,6 @@
 function LogicCharts(con,data){
     var that = this;
+    var that_charts = this;
     var chart_hieght;
     var chart_width;
     var previousX,previousY;
@@ -32,7 +33,8 @@ function LogicCharts(con,data){
 
     this.end_point = 1000;
     this.raw_data = data;
-    this.container = con;
+    this.container = $("<div></div>").addClass("charts").appendTo(con);
+    this.sigs_sel_con = $("<div></div>").addClass("sig_sel_con").appendTo(con);
     this.charts = {};
     this.chart_height = 0;
     if(Array.isArray(data)){
@@ -41,30 +43,8 @@ function LogicCharts(con,data){
         chart_width = $(that.container).width();
         $("<div></div>").attr("id","pop_info").css({position:"absolute"}).appendTo(that.container);
         $.each(that.raw_data,function(index,signal){
-            //var chart;
-            //var $chart_con = $("<div></div>").attr("id",signal.sig_def.name).addClass("chart_container").height(chart_height).appendTo(that.container);
-            //that.charts[signal.sig_def.name] = (chart);
             create_chart(signal);
             });
-        /*$("#chart_containers .chart_container").draggable({
-                         cursor: "move",
-                         cursorAt: { top: 56, left: 56 },
-                         //revert: "invalid",
-                         containment: "#chart_containers",
-                        });
-        $("#chart_containers .chart_container").droppable({
-          accept:".chart_container",
-          tolerance:"pointer",
-          hoverClass:"drop_active",
-          drop:function(evt,ui){
-            var src = ui.draggable;
-            var dst = evt.target;
-            $(dst).after(src);
-            $(src).css("left",0).css("top",0);//({left:(0),top:(0)});
-          },
-
-        });*/
-
     }
     function create_chart(signal){
         var $chart_con = $("<div></div>").attr("id",signal.sig_def.name)
@@ -129,6 +109,35 @@ function LogicCharts(con,data){
       $(dst).after(src);
       $(src).css("left",0).css("top",0);//({left:(0),top:(0)});
     }
+    
+    this.get_signals_list = function(){
+      $.each(this.);  
+    }
+    
+    
+    
+    function SignalPanel(con,signal_def,selected_list){
+    $.each(signal_def,function(index,def){
+        var $item = $("<div></div>").addClass("signal").text(def.name).attr("id",index).appendTo(con);
+        if(selected_list.hasOwnProperty(def.name)){
+            item.addClass("selected");
+        }
+        $item.click(item_click);
+    });
+    $(con).dialog();
+    function item_click(evt){
+        var $item = $(evt.target);
+        $item.toggleClass("selected");
+        if(cbs.select_change_cb != undefined){
+            var id = $item.attr("id");
+            if($item.hasClass("selected") == true){
+                that_charts.del_signal(signal_def[id]);
+            }else{
+                that_charts.add_signal(signal_def[id]);
+            }
+        }
+    }
+}
 
 }
 

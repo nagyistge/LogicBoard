@@ -74,9 +74,14 @@ function ProjectTree(con,_proj){
 
    }
    function create_tc(node){
+    var parent_node = project_tree.tree('getNodeById', node.id);
+    project_tree.tree("selectNode",(null));
+    project_tree.tree("appendNode",{label:"new_tc",id:generateUUID(),type:"tc"},parent_node);
    }
    function create_seq(node){
-
+    var parent_node = project_tree.tree('getNodeById', node.id);
+    project_tree.tree("selectNode",(null));
+    project_tree.tree("appendNode",{label:"new_seq",id:generateUUID(),type:"seq"},parent_node);
    }
    function open_node(node){
     if(node.type == "tc"){

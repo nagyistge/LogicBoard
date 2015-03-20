@@ -58,8 +58,6 @@
     $(function($){
          win_manager = new MultiPanelControl("#main");
          $proj_manager = new ProjectTree(win_manager.createWindow("proj",{}));
-         win_manager.createTCTab("Test");
-         win_manager.createSeqTab("Sequ");
        /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
                                     {select_change_cb:function(signal_def,selected){
                                         if(selected) charts.add_signal(signal_def);
