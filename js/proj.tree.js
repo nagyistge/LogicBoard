@@ -1,30 +1,7 @@
-  var project1 = [{label:"autotest",
-                        id:1,
-                        type:"project",
-                        children:[
-                            {
-                                label:"Doors",
-                                type:"folder",
-                                children:[
-                                    {
-                                        label:"normal_case",
-                                        type:"tc",
-                                        id:12
-                                    },
-                                    {
-                                        label:"door and pwl",
-                                        type:"seq",
-                                        id:13
-                                    }
-                                ]
-                            }
-                        ]
-                       }];
-
 function ProjectTree(con,_proj){
   var cur_node_id = 100;
   var proj_data = _proj;
-  if(proj_data == null) proj_data = [{label:"new project",type:"project",id:1}];
+  if(proj_data == null) proj_data = {"tree":[{label:"new project",type:"project",id:1}],data:{}};
   var project_tree = create_proj_tree();
 
   $(con).on("click",".pulldown-menu li",function(evt){
@@ -34,7 +11,7 @@ function ProjectTree(con,_proj){
                                     });
   function create_proj_tree(){
     var tree = $(con).tree(
-                  {data:proj_data,autoOpen:true,dragAndDrop:true,
+                  {data:proj_data.tree,autoOpen:true,dragAndDrop:true,
                    onCreateLi:function(node,$li){
                                 var $menu = $("<span></span>").addClass("tree-menu").append($("<div>Menu</div>").addClass("menu-bar"));
                                 $menu.append(createContextMenu(node));
@@ -47,9 +24,9 @@ function ProjectTree(con,_proj){
   this.openProject = function(){
     mm.open_file_dlg(function(file){
       mm.read_json_file(file,function(obj){
-            //proj_data = obj;
+            proj_data = obj;
             if(obj == null) return;
-            project_tree.tree("loadData",obj);
+            project_tree.tree("loadData",proj_data.tree);
         });
     });
   }
@@ -63,8 +40,8 @@ function ProjectTree(con,_proj){
    };
 
    function save_project(){
-    var tree= project_tree.tree('getTree').getData();
-    mm.save_file(tree.name,tree);
+    proj_data.tree= project_tree.tree('getTree').getData();
+    mm.save_file(proj_data.tree[0].name,proj_data);
    }
 
    function delete_node(node){
@@ -82,15 +59,20 @@ function ProjectTree(con,_proj){
    }
    function create_seq(node){
     var parent_node = project_tree.tree('getNodeById', node.id);
+    var id = generateUUID();
     project_tree.tree("selectNode",(null));
-    project_tree.tree("appendNode",{label:"new_seq",id:generateUUID(),type:"seq"},parent_node);
+    project_tree.tree("appendNode",{label:"new_seq",id:id,type:"seq"},parent_node);
+    proj_data.data[id] = default_seq();
    }
    function open_node(node){
     if(node.type == "tc"){
-        win_manager.createTCTab(node.name);
+        win_manager.createTCTab(node.name,node);
     }
     if(node.type == "seq"){
-        win_manager.createSeqTab(node.name);
+      if (proj_data.data[node.id] == undefined){
+        proj_data.data[node.id] = default_seq();
+      }
+      win_manager.createSeqTab(node.name,proj_data.data[node.id]);
     }
    }
    function createContextMenu(node){
@@ -109,6 +91,11 @@ function ProjectTree(con,_proj){
        }
        return $menu;
    }
+  function default_seq(){
+    return {
+      data:[]
+    };
+  }
 }
 
 function generateUUID(){

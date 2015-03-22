@@ -43,7 +43,7 @@ function MultiPanelControl(con){
   //var proj = new ProjectTree(createAWindow("proj"));
   function createAWindow(name) {
     "use strict";
-    var win = $("<div></div>")
+    var $win = $("<div></div>")
               .appendTo(con)
               .attr("title",name).attr("id","win-" + id)
               .window({
@@ -56,9 +56,9 @@ function MultiPanelControl(con){
                 height:500
               })
               .append("<div class='content'></div>");
-      that.windows[name] = win;
+      that.windows[name] = $win;
       id ++;
-      return $(".content",win);
+      return $win;
   }
 
   function createWindow(name,cfg){
@@ -73,59 +73,11 @@ function MultiPanelControl(con){
     return createWindow(name,cfg);
   }
   this.createTCTab = function(name){
-    var $content = createAWindow(name);
-    var graph = new joint.dia.Graph;
-
-var paper = new joint.dia.Paper({
-    el: $content,
-    gridSize: 1,
-    width: 800,
-    height: 600,
-    model: graph
-});
-
-var erd = joint.shapes.erd;
-
-var element = function(elm, x, y, label) {
-    var cell = new elm({ position: { x: x, y: y }, attrs: { text: { text: label }}});
-    graph.addCell(cell);
-    return cell;
-};
-
-var link = function(elm1, elm2) {
-    var myLink = new erd.Line({ source: { id: elm1.id }, target: { id: elm2.id }});
-    graph.addCell(myLink);
-    return myLink;
-};
-
-var employee = element(erd.Entity, 100, 200, "Employee");
-var salesman = element(erd.Entity, 100, 400, "Salesman");
-var wage = element(erd.WeakEntity, 530, 200, "Wage");
-var paid = element(erd.IdentifyingRelationship, 350, 190, "gets paid");
-var isa = element(erd.ISA, 125, 300, "ISA");
-var number = element(erd.Key, 0, 90, "number");
-var nameEl = element(erd.Normal, 75, 30, "name");
-var skills = element(erd.Multivalued, 150, 90, "skills");
-var amount = element(erd.Derived, 440, 80, "amount");
-var date = element(erd.Normal, 590, 80, "date");
-var plate = element(erd.Key, 405, 500, "plate");
-var car = element(erd.Entity, 430, 400, "Company car");
-var uses = element(erd.Relationship, 300, 390, "uses");
-
-link(employee, paid).cardinality('1');
-link(employee, number);
-link(employee, nameEl);
-link(employee, skills);
-link(employee, isa);
-link(isa, salesman);
-link(salesman, uses).cardinality('0..1');;
-link(car, uses).cardinality('1..1');
-link(car, plate);
-link(wage, paid).cardinality('N');
-link(wage, amount);
-link(wage, date);
+    var $win = createAWindow(name);
+    var $content = $(".content",$win);
+    var chart = new FlowChart($content);
   };
-  this.createSeqTab = function(name){
+  this.createSeqTab = function(name,data){
     var data1 = {
             sig_def:{
                 name:"keyin",
@@ -148,10 +100,17 @@ link(wage, date);
             },
             data:[[0,1],[6,1],[50,0],[53,0],[60,0]]
         };
-    var $content = createAWindow(name);
-    $content.addClass("seq");
-    var charts = new LogicCharts($content,[data1,data2,data3]);
+    var $win = createAWindow(name);
+    if(data.data == []){
+      data.data = [data1,data2,data3];
+    }
+    $(".content",$win).addClass("seq");
+    var charts = new LogicCharts($(".content",$win),data);
+    $win.window( "option", "beforeClose", function(){
+        charts.close();
+    } );
   }
+
 
 
 }

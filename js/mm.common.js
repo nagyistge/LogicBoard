@@ -1,4 +1,3 @@
-var mm = {};
 $(function(){
   mm.filedlg = $("#fileDialog");
 });

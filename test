@@ -1,0 +1,41 @@
+[
+    {
+        "name": "new project",
+        "type": "project",
+        "id": 1,
+        "is_open": true,
+        "children": [
+            {
+                "name": "new folder",
+                "id": "71a8253c-7d8f-4cf2-a42c-d378e4724e1b",
+                "type": "folder",
+                "is_open": true,
+                "children": [
+                    {
+                        "name": "new folder",
+                        "id": "19eb773d-ba1e-4bf9-8cd3-96bce0491fe6",
+                        "type": "folder"
+                    },
+                    {
+                        "name": "new_seq",
+                        "id": "bd9a4ff2-abd6-471b-8017-7dc115c5971a",
+                        "type": "seq"
+                    }
+                ]
+            },
+            {
+                "name": "new folder",
+                "id": "dc576d2e-a416-4723-88da-495950b58fa9",
+                "type": "folder",
+                "is_open": true,
+                "children": [
+                    {
+                        "name": "new folder",
+                        "id": "53836376-f9ee-4207-94ba-a5f2fc289c64",
+                        "type": "folder"
+                    }
+                ]
+            }
+        ]
+    }
+]

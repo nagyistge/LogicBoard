@@ -1,34 +1,205 @@
-[{
-    "label": "new project",
-    "type": "project",
-    "id": 1,
-    "is_open": true,
-    "children": [
+{
+    "tree": [
         {
-            "label": "new folder",
-            "id": "71a8253c-7d8f-4cf2-a42c-d378e4724e1b",
-            "type": "folder",
+            "name": "new project",
+            "type": "project",
+            "id": 1,
             "is_open": true,
             "children": [
                 {
-                    "label": "new folder",
-                    "id": "19eb773d-ba1e-4bf9-8cd3-96bce0491fe6",
-                    "type": "folder"
-                }
-            ]
-        },
-        {
-            "label": "new folder",
-            "id": "dc576d2e-a416-4723-88da-495950b58fa9",
-            "type": "folder",
-            "is_open": true,
-            "children": [
+                    "name": "new folder",
+                    "id": "71a8253c-7d8f-4cf2-a42c-d378e4724e1b",
+                    "type": "folder",
+                    "is_open": true,
+                    "children": [
+                        {
+                            "name": "new folder",
+                            "id": "19eb773d-ba1e-4bf9-8cd3-96bce0491fe6",
+                            "type": "folder"
+                        },
+                        {
+                            "name": "new_seq",
+                            "id": "bd9a4ff2-abd6-471b-8017-7dc115c5971a",
+                            "type": "seq"
+                        },
+                        {
+                            "name": "new_tc",
+                            "id": "c4946c60-8817-4fc7-be67-71c4c82e3c6c",
+                            "type": "tc"
+                        }
+                    ]
+                },
                 {
-                    "label": "new folder",
-                    "id": "53836376-f9ee-4207-94ba-a5f2fc289c64",
-                    "type": "folder"
+                    "name": "new folder",
+                    "id": "dc576d2e-a416-4723-88da-495950b58fa9",
+                    "type": "folder",
+                    "is_open": true,
+                    "children": [
+                        {
+                            "name": "new folder",
+                            "id": "53836376-f9ee-4207-94ba-a5f2fc289c64",
+                            "type": "folder"
+                        },
+                        {
+                            "name": "new_seq",
+                            "id": "ab43bdcf-d1f7-46ee-9745-3ca30180ffcf",
+                            "type": "seq"
+                        }
+                    ]
                 }
             ]
         }
-    ]
-}]
+    ],
+    "data": {
+        "ab43bdcf-d1f7-46ee-9745-3ca30180ffcf": {
+            "data": [
+                {
+                    "sig_def": {
+                        "name": "keyin",
+                        "type": "input"
+                    },
+                    "end_point": 100,
+                    "data": [
+                        [
+                            0,
+                            1
+                        ],
+                        [
+                            10,
+                            0
+                        ],
+                        [
+                            40,
+                            1
+                        ],
+                        [
+                            60,
+                            0
+                        ],
+                        [
+                            74,
+                            true
+                        ],
+                        [
+                            86,
+                            false
+                        ]
+                    ]
+                },
+                {
+                    "sig_def": {
+                        "name": "lowbeam",
+                        "type": "input"
+                    },
+                    "data": [
+                        [
+                            0,
+                            0
+                        ],
+                        [
+                            12,
+                            1
+                        ],
+                        [
+                            50,
+                            0
+                        ],
+                        [
+                            60,
+                            1
+                        ],
+                        [
+                            70,
+                            false
+                        ],
+                        [
+                            90,
+                            true
+                        ]
+                    ],
+                    "end_point": 100
+                },
+                {
+                    "sig_def": {
+                        "name": "highbeam",
+                        "type": "input"
+                    },
+                    "data": [
+                        [
+                            0,
+                            1
+                        ],
+                        [
+                            6,
+                            1
+                        ],
+                        [
+                            50,
+                            0
+                        ],
+                        [
+                            53,
+                            0
+                        ],
+                        [
+                            60,
+                            0
+                        ],
+                        [
+                            71,
+                            true
+                        ],
+                        [
+                            79,
+                            false
+                        ]
+                    ],
+                    "end_point": 100
+                }
+            ]
+        },
+        "bd9a4ff2-abd6-471b-8017-7dc115c5971a": {
+            "data": [
+                {
+                    "sig_def": {
+                        "name": "LowBeamSwitch",
+                        "type": "input",
+                        "values": [
+                            0,
+                            1
+                        ],
+                        "func": "SetDIO"
+                    },
+                    "data": [],
+                    "end_point": 100
+                },
+                {
+                    "sig_def": {
+                        "name": "LowBeam",
+                        "type": "output",
+                        "values": [
+                            0,
+                            1
+                        ],
+                        "func": "SetDIO"
+                    },
+                    "data": [],
+                    "end_point": 100
+                },
+                {
+                    "sig_def": {
+                        "name": "ACC",
+                        "type": "input",
+                        "values": [
+                            0,
+                            1
+                        ],
+                        "func": "SetDIO"
+                    },
+                    "data": [],
+                    "end_point": 100
+                }
+            ]
+        }
+    }
+}

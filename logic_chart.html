@@ -22,6 +22,8 @@
     <script language="javascript" type="text/javascript" src="js/lodash.js"></script>
   <script language="javascript" type="text/javascript" src="js/joint.js"></script> <!--   a bug in the lib which remove the plugin defintion -->
   <script language="javascript" type="text/javascript" src="js/joint.shapes.erd.js"></script>
+  <script language="javascript" type="text/javascript" src="js/joint.shapes.uml.js"></script>
+    <script language="javascript" type="text/javascript" src="js/mm.shapes.flow.js"></script>
 
     <script language="javascript" type="text/javascript" src="js/jquery-ui/jquery-ui.js"></script>
     <script language="javascript" type="text/javascript" src="js/simone/simone.window.js"></script>
@@ -45,19 +47,26 @@
 
     <script language="javascript" type="text/javascript" src="js/logic.chart.js"></script>
     <script language="javascript" type="text/javascript" src="js/logic.charts.js"></script>
+    <script language="javascript" type="text/javascript" src="js/mm.flowchart.js"></script>
     <script language="javascript" type="text/javascript" src="js/logic.data.js"></script>
     <script language="javascript" type="text/javascript" src="js/proj.tree.js"></script>
-    <script language="javascript" type="text/javascript" src="js/signal.panel.js"></script>
+    <script language="javascript" type="text/javascript" src="js/flow.block.js"></script>
+    <!--<script language="javascript" type="text/javascript" src="js/signal.panel.js"></script>-->
     <script language="javascript" type="text/javascript" src="js/tab.control.js"></script>
     <script language="javascript" type="text/javascript" src="js/mm.common.js"></script>
+
 
     <script type="text/javascript">
 
     var win_manager = null;
     var $proj_manager = null;
+    var $flow_blocks = null;
+
     $(function($){
          win_manager = new MultiPanelControl("#main");
          $proj_manager = new ProjectTree(win_manager.createWindow("proj",{}));
+
+         $flow_blocks = new FlowBlock(win_manager.createWindow("flow block",{}));
        /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
                                     {select_change_cb:function(signal_def,selected){
                                         if(selected) charts.add_signal(signal_def);
