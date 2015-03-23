@@ -21,6 +21,18 @@ function FlowBlock($content){
   });
   pointer.ref_model = null;
 
+  var line = new joint.shapes.erd.Entity(
+  {
+      attrs:{
+        text:{
+          text:"Link"
+        }
+      }
+  }
+  );
+  line.ref_model = "link";
+
+
   var func_seq = new joint.shapes.erd.Entity({
       attrs:{
         text:{
@@ -49,6 +61,8 @@ function FlowBlock($content){
   });
   check.ref_model = mm.shapes.flow.Check;
 
+
+
   var start_point = new joint.shapes.uml.StartState();
   start_point.ref_model = joint.shapes.uml.StartState;
 
@@ -56,7 +70,7 @@ function FlowBlock($content){
   var end_point = new joint.shapes.uml.EndState();
   end_point.ref_model = joint.shapes.uml.EndState;
 
-  var blocks = [start_point,end_point,func_seq,scenario,check];
+  var blocks = [pointer,line,start_point,end_point,func_seq,scenario,check];
 
   graph.addCells(tool_box_layout(blocks));
 

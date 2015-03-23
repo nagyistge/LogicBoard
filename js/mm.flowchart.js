@@ -10,10 +10,17 @@ function FlowChart($content,data){
   });
   paper.on("blank:pointerclick",function(evt){
       var model = $flow_blocks.get_cur_model();
-      if(model != null){
+      if((model != null) && (model instanceof Function)){
         var new_el = new model({position:{x:evt.offsetX,y:evt.offsetY}});
         graph.addCell(new_el);
       }
 
     });
+  paper.on("cell:pointerclick",function(elem,evt){
+    var model = $flow_blocks.get_cur_model();
+    if(model == "link"){
+      var nlink = new joint.dia.Link({source:{id:elem.model.id}});
+      graph.addCell(nlink);
+    }
+  });
 }
