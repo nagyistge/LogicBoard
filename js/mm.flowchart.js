@@ -22,7 +22,12 @@ function FlowChart($container,data){
   paper.on("cell:pointerclick",function(elem,evt){
     var model = $flow_blocks.get_cur_model();
     if(model == "link"){
-      var nlink = new joint.dia.Link({source:{id:elem.model.id}});
+      var nlink = new joint.shapes.fsa.Arrow(
+                  {
+                    source:{id:elem.model.id},
+                    target:{x:evt.offsetX - 20,y:evt.offsetY - 20},
+                    //labels:[{attrs:{text:"yyy"}}]
+                  });
       graph.addCell(nlink);
     }
   });
