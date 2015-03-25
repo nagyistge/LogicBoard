@@ -1,8 +1,11 @@
-function FlowChart($content,data){
+function FlowChart($container,data){
   var graph = new joint.dia.Graph;
-
+  var $g_container = $("<div></div>").addClas("g_container").appendTo($container);
+  var $g = $("<div></div>").addClass("graph").appendTo($g_container);
+  var $p = $("<div></div>").addClass("panel").appendTo($g_container);
+  
   var paper = new joint.dia.Paper({
-    el: $content,
+    el: $g,
     gridSize: 1,
     width: 800,
     height: 600,

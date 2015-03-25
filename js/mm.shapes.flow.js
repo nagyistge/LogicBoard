@@ -71,3 +71,8 @@ mm.shapes.flow.FuncSeq = joint.dia.Element.extend({
 
     }, joint.dia.Element.prototype.defaults)
 });
+mm.shapes.flow.Flow = joint.dia.Link.extend({
+    markup:'<g><line></line><text></text></g>',
+    defaults: { type: "flow.Flow" },
+
+});

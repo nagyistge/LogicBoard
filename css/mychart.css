@@ -40,17 +40,35 @@
     width:20%;
 }
 
-#signal_panel .selected.signal{
+#sig_sel_con .selected.signal{
     background:green;
 }
 
-#signal_panel .signal{
+#sig_sel_con .signal{
     background:gray;
 }
-#signal_panel
+#sig_sel_con
 { width: 150px; height: 150px; padding: 0.5em; }
 
-#signal_panel h3 { text-align: center; margin: 0; }
+#sig_sel_con h3 { text-align: center; margin: 0; }
+
+
+.g_container {
+    width:100%;
+    height:100%
+}
+.g_container .graph {
+float:left;
+height:100%;
+width:80%
+}
+
+.g_container .panel {
+float:right;
+height:100%;
+width:20%
+}
+
 
 .jqtree-element .tree-menu{
     float:right;

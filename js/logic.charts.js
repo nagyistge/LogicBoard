@@ -128,7 +128,9 @@ function LogicCharts(con,node){
     $.each(signal_def,function(index,def){
         var $item = $("<div></div>").addClass("signal").text(def.name).attr("id",index).appendTo(con);
         if(selected_list.hasOwnProperty(def.name)){
-            item.addClass("selected");
+            $item.addClass("selected");
+        }else{
+            $item.removeClass("selected");
         }
         $item.click(item_click);
     });
