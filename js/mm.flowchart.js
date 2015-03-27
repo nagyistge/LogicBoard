@@ -1,14 +1,15 @@
+
 function FlowChart($container,data){
   var graph = new joint.dia.Graph;
-  var $g_container = $("<div></div>").addClas("g_container").appendTo($container);
+  var $g_container = $("<div></div>").addClass("g_container").appendTo($container);
   var $g = $("<div></div>").addClass("graph").appendTo($g_container);
   var $p = $("<div></div>").addClass("panel").appendTo($g_container);
-  
+
   var paper = new joint.dia.Paper({
     el: $g,
     gridSize: 1,
-    width: 800,
-    height: 600,
+    width: "100%",
+    height: "100%",
     model: graph
   });
   paper.on("blank:pointerclick",function(evt){
@@ -16,6 +17,9 @@ function FlowChart($container,data){
       if((model != null) && (model instanceof Function)){
         var new_el = new model({position:{x:evt.offsetX,y:evt.offsetY}});
         graph.addCell(new_el);
+      }
+      if(model == "Pointer"){
+
       }
 
     });
@@ -26,9 +30,23 @@ function FlowChart($container,data){
                   {
                     source:{id:elem.model.id},
                     target:{x:evt.offsetX - 20,y:evt.offsetY - 20},
-                    //labels:[{attrs:{text:"yyy"}}]
+                    labels: [{ position: .5, attrs: { text: { text: "test", 'font-weight': 'bold' } } }]
                   });
       graph.addCell(nlink);
     }
   });
+
+  function render_entity_panel(elem){
+
+  }
+  var panel_template = {
+    "mm.FuncSeq":
+
+  }
+
 }
+
+  function TCEntity(){
+
+
+  }
