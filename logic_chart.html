@@ -62,13 +62,14 @@
     var win_manager = null;
     var $proj_manager = null;
     var $flow_blocks = null;
-    /#test
+    var $f_chart = null;
 
     $(function($){
          win_manager = new MultiPanelControl("#main");
          $proj_manager = new ProjectTree(win_manager.createWindow("proj",{}));
 
          $flow_blocks = new FlowBlock(win_manager.createWindow("flow block",{}));
+         $f_chart = new win_manager.createTCTab("test");
        /*var signal_panel = new SignalPanel("#signal_panel",bcm_signals,[],
                                     {select_change_cb:function(signal_def,selected){
                                         if(selected) charts.add_signal(signal_def);

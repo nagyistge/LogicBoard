@@ -34,19 +34,29 @@ function FlowChart($container,data){
                   });
       graph.addCell(nlink);
     }
+    render_entity_panel(elem,$p);
   });
 
-  function render_entity_panel(elem){
-
+  function render_entity_panel(elem,$con){
+    if(entity_def[elem.model.attributes.type] != null){
+      entity_def[elem.model.attributes.type].render_panel(elem,$con);
+    }
   }
-  var panel_template = {
-    "mm.FuncSeq":
-
-  }
-
 }
 
-  function TCEntity(){
-
-
+var entity_def = {
+  "flow.FuncSeq":{
+    render_panel:function(elem,$con){
+      $("<div/>").text("Function Sequence File")
+                    .append($("<input/>"))
+                  .appendTo($con.empty());
+      }
+    },
+  "flow.Check":{
+    render_panel:function(elem,$con){
+      $("<div/>").text("check result").appendTo($con.empty());
+    }
   }
+
+};
+
